@@ -6,6 +6,7 @@ import 'package:weather_app/pages/choose_location.dart';
 void main() => {
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/':(context) => const loading(),
