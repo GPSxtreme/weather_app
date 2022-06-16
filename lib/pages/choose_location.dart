@@ -1,14 +1,13 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, camel_case_types, use_build_context_synchronously, unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:weather_app/services/get_cities.dart';
 import 'package:weather_app/services/get_lat_lon.dart';
 import 'package:weather_app/services/get_details.dart';
-
 
 Map<dynamic,dynamic> mainData ={};
 Map<dynamic,dynamic> cityLatLon={};
 void setupCityNames(){
+  cityNames = cityNames.toSet().toList();//to remove duplicates
   for(var e in mainData.keys){
     for(int i = 0;i<mainData[e].length;i++){
       cityNames.add(mainData[e][i]);
@@ -117,25 +116,22 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];
-    for (var location in cityNames) {
-      if (location.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(location);
+    void buildSearchList(){
+      for (var location in cityNames) {
+        if (location.toLowerCase().contains(query.toLowerCase())) {
+          matchQuery.add(location);
+        }
       }
+      matchQuery = matchQuery.toSet().toList();
     }
+    buildSearchList();
     return ListView.builder(
       itemCount: matchQuery.length,
-
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
             title: Text(result),
             onTap: () async{
-              late int index;
-              for(int i = 0; i < cityNames.length;i++){
-                if(cityNames[i] == result){
-                  index = i;
-                }
-              }
               //get lat lon
               Map latLon = await get_lat_lon().getLatLon(result);
               //navigate to home screen and sending data
