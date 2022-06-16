@@ -24,7 +24,7 @@ class get_details {
   Future<void> getDetails() async {
    try{
      //get data from weather api
-     String apiEndPoint = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=8bfd8626d5b14065bba3c261fb429535';
+     String apiEndPoint = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=8bfd8626d5b14065bba3c261fb429535&units=metric';
      Uri url = Uri.parse(apiEndPoint);
      Response response = await get(url);
      Map data = jsonDecode((response.body));
