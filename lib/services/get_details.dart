@@ -21,6 +21,25 @@ class get_details {
   //constructor
   get_details({required this.lat,required this.lon});
   //
+  Future<int> check()async{
+    late int result;
+    try{
+      String apiEndPoint = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=8bfd8626d5b14065bba3c261fb429535&units=metric';
+      Uri url = Uri.parse(apiEndPoint);
+      Response response = await get(url);
+      Map data = jsonDecode((response.body));
+      if(data['message'] != null && data['message'] == "wrong latitude" ){
+        result = 0;
+      }
+      else {
+        result = 1;
+      }
+    }
+    catch(e){
+      print(e);
+    }
+    return result;
+  }
   Future<void> getDetails() async {
    try{
      //get data from weather api
@@ -28,6 +47,7 @@ class get_details {
      Uri url = Uri.parse(apiEndPoint);
      Response response = await get(url);
      Map data = jsonDecode((response.body));
+
      //get properties from data
      cityName = data['name'] ?? 'Not available';
      main = data['weather'][0]['main'] ?? 'Not available';

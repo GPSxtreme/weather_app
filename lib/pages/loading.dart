@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_app/services/get_details.dart';
 import 'package:weather_app/pages/choose_location.dart';
 import 'package:weather_app/services/get_cities.dart';
-import 'package:weather_app/services/get_lat_lon_bulk.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class loading extends StatefulWidget {
   const loading({Key? key}) : super(key: key);
