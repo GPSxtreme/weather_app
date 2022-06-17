@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:drop_shadow/drop_shadow.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
 
@@ -14,34 +16,327 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   Map data = {};
+  String bC = '222831';
+  String hC = '00ADB5';
+  String fC = 'EEEEEE';
+  String cC = '393E46';
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty? data: ModalRoute.of(context)?.settings.arguments as Map;
+    Size size = MediaQuery.of(context).size;
+    double n = 4.5;
+    if(data['windGust'] != 'Not available'){
+      n = 2.2;
+    }
     return Scaffold(
+      backgroundColor: HexColor(bC),
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text('city name: '+data['cityName']),
-              Text('weather now: '+data['main']),
-              Text('description: '+data['desc']),
-              Text('Temperature: '+data['temp'].toString()+'°C'),
-              Text('Feels like: '+ data['feelsLike'].toString()+'°C'),
-              Text('Temperature maximum: '+data['tempMax'].toString()+'°C'),
-              Text('Temperature minimum: '+data['tempMin'].toString()+'°C'),
-              Text('Pressure: '+data['pressure'].toString()+' pa'),
-              Text('Humidity: '+data['humidity'].toString()+' g.m-3'),
-              Text('Wind speed: '+data['windSpeed'].toString()+' km/h'),
-              Text('Wind degree: '+data['windDeg'].toString()+'°'),
-              Text('Wind gust: '+data['windGust'].toString()),
-              IconButton(onPressed: (){
-                Navigator.pushNamed(context,'/location');
-              }, icon: Icon(Icons.edit)),
+              DropShadow(
+                  blurRadius: 6,
+                  offset: const Offset(2,6),
+                  opacity: 1,
+                  spread: 1,
+                  child: Card(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(18))
+                    ),
+                    color: HexColor(cC),
+                    child: SizedBox(
+                      height: size.height/4,
+                      width: size.width,
+                      child: Center(
+                        child:
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  IconButton(
+                                      onPressed: (){
+                                        Navigator.pushNamed(context,'/location');
+                                      },
+                                      icon: Icon(Icons.edit_location,size: 50,color: HexColor(hC),)
+                                  ),
+                                  SizedBox(height: 10,),
+                                  ConstrainedBox(
+                                    constraints:BoxConstraints(
+                                      minWidth: size.width/5,
+                                      maxWidth: size.width/1.5,
+                                      minHeight: size.height/18,
+                                      maxHeight: size.height/10,
+                                    ),
+                                    child: AutoSizeText(
+                                      data['cityName'],style:GoogleFonts.righteous(
+                                        textStyle:TextStyle(fontSize: 40,color: HexColor(hC))
+                                    ),
+                                      maxFontSize: 60,
+                                      minFontSize: 20,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+                              Text(data['desc'],style: GoogleFonts.sarabun(
+                                textStyle: TextStyle(fontSize: 30,color: HexColor(fC))
+                              ),)
+                            ],
+                          )
+                      ),
+                    ),
+                  ),
+                ),//main city and desc
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: DropShadow(
+                              blurRadius: 6,
+                              offset: const Offset(2,6),
+                              opacity: 1,
+                              spread: 1,
+                              child: Card(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(18))
+                                ),
+                                color: HexColor(cC),
+                                child: SizedBox(
+                                  height: size.height/5,
+                                  width: size.width/2,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        FaIcon(Ionicons.thermometer_outline,size: 40,color: HexColor('fcfc03'),),
+                                        SizedBox(height: 10,),
+                                        Text(data['temp'].toString()+'°C',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 35,color: HexColor(fC))
+                                        ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),//main temperature
+                          Expanded(
+                            flex: 1,
+                            child: DropShadow(
+                              blurRadius: 6,
+                              offset: const Offset(2,6),
+                              opacity: 1,
+                              spread: 1,
+                              child: Card(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(18))
+                                ),
+                                color: HexColor(cC),
+                                child: SizedBox(
+                                  height: size.height/5,
+                                  width: size.width/2,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        FaIcon(FontAwesomeIcons.wind,size: 40,color: HexColor(hC),),
+                                        SizedBox(height: 10,),
+                                        Text(data['windSpeed'].toString()+' km/h',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 30,color: HexColor(fC))
+                                        ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),//wind speed
+                        ],
+                      ),//temperature and wind speed cards
+                         Row(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: DropShadow(
+                              blurRadius: 6,
+                              offset: const Offset(2,6),
+                              opacity: 1,
+                              spread: 1,
+                              child: Card(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(18))
+                                ),
+                                color: HexColor(cC),
+                                child: SizedBox(
+                                  height: size.height/5,
+                                  width: size.width/2,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        FaIcon(FontAwesomeIcons.temperatureHigh,size: 40,color: HexColor('#fc0303'),),
+                                        SizedBox(height: 10,),
+                                        Text(data['tempMax'].toString()+'°C',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 35,color: HexColor(fC))
+                                        ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),//main temperature
+                          Expanded(
+                            flex: 1,
+                            child: DropShadow(
+                              blurRadius: 6,
+                              offset: const Offset(2,6),
+                              opacity: 1,
+                              spread: 1,
+                              child: Card(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(18))
+                                ),
+                                color: HexColor(cC),
+                                child: SizedBox(
+                                  height: size.height/5,
+                                  width: size.width/2,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        FaIcon(FontAwesomeIcons.temperatureLow,size: 40,color: HexColor(hC),),
+                                        SizedBox(height: 10,),
+                                        Text(data['tempMin'].toString()+'°C',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 30,color: HexColor(fC))
+                                        ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),//temperature maximum and minimum
+                      DropShadow(
+                        blurRadius: 6,
+                        offset: const Offset(2,6),
+                        opacity: 1,
+                        spread: 1,
+                        child: Card(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(18))
+                          ),
+                          color: HexColor(cC),
+                          child: SizedBox(
+                            height: size.height/3,
+                            width: size.width,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text('Pressure',style: GoogleFonts.signika(
+                                        textStyle: TextStyle(fontSize: 20,color: HexColor(hC))
+                                      ) ,),
+                                      SizedBox(width: size.width/2.7,),
+                                      Text(data['pressure'].toString()+' pa',style: GoogleFonts.signika(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(fC))
+                                      ) )
+                                    ],
+                                  ),//pressure
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text('Humidity',style: GoogleFonts.signika(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(hC))
+                                      ) ,),
+                                      SizedBox(width: size.width/3,),
+                                      Text(data['humidity'].toString()+' g.m-3',style: GoogleFonts.signika(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(fC))
+                                      ) )
+                                    ],
+                                  ),//humidity
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text('Wind degree',style: GoogleFonts.signika(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(hC))
+                                      ) ,),
+                                      SizedBox(width: size.width/2.5,),
+                                      Text(data['windDeg'].toString()+'°',style: GoogleFonts.signika(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(fC))
+                                      ) )
+                                    ],
+                                  ),//wind degree
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text('Wind gust',style: GoogleFonts.signika(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(hC))
+                                      ) ,),
+                                      SizedBox(width: size.width/n,),
+                                      Text(data['windGust'].toString(),style: GoogleFonts.signika(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(fC))
+                                      ) )
+                                    ],
+                                  ),//wind gust
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
+
     );
   }
 }
+//reference
+// Text('city name: '+data['cityName']),
+// Text('weather now: '+data['main']),
+// Text('description: '+data['desc']),
+// Text('Temperature: '+data['temp'].toString()+'°C'),
+// Text('Feels like: '+ data['feelsLike'].toString()+'°C'),
+// Text('Temperature maximum: '+data['tempMax'].toString()+'°C'),
+// Text('Temperature minimum: '+data['tempMin'].toString()+'°C'),
+// Text('Pressure: '+data['pressure'].toString()+' pa'),
+// Text('Humidity: '+data['humidity'].toString()+' g.m-3'),
+// Text('Wind speed: '+data['windSpeed'].toString()+' km/h'),
+// Text('Wind degree: '+data['windDeg'].toString()+'°'),
+// Text('Wind gust: '+data['windGust'].toString()),
