@@ -7,6 +7,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:drop_shadow/drop_shadow.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
 
@@ -16,17 +18,22 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   Map data = {};
-  String bC = '222831';
-  String hC = '00ADB5';
+  String bC = '363333';
+  String hC = 'E16428';
   String fC = 'EEEEEE';
-  String cC = '393E46';
+  String cC = '272121';
+  String mCC ='E16428';
+  final Uri url = Uri.parse("https://github.com/GPSxtreme");
+  void _launchUrl() async {
+    await launchUrl(url);
+  }
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty? data: ModalRoute.of(context)?.settings.arguments as Map;
     Size size = MediaQuery.of(context).size;
     double n = 4.5;
     if(data['windGust'] != 'Not available'){
-      n = 2.2;
+      n = 2.4;
     }
     return Scaffold(
       backgroundColor: HexColor(bC),
@@ -41,55 +48,64 @@ class _homeState extends State<home> {
                   opacity: 1,
                   spread: 1,
                   child: Card(
+                    semanticContainer: true,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(18))
                     ),
-                    color: HexColor(cC),
-                    child: SizedBox(
-                      height: size.height/4,
-                      width: size.width,
-                      child: Center(
-                        child:
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  IconButton(
-                                      onPressed: (){
-                                        Navigator.pushNamed(context,'/location');
-                                      },
-                                      icon: Icon(Icons.edit_location,size: 50,color: HexColor(hC),)
-                                  ),
-                                  SizedBox(height: 10,),
-                                  ConstrainedBox(
-                                    constraints:BoxConstraints(
-                                      minWidth: size.width/5,
-                                      maxWidth: size.width/1.5,
-                                      minHeight: size.height/18,
-                                      maxHeight: size.height/10,
-                                    ),
-                                    child: AutoSizeText(
-                                      data['cityName'],style:GoogleFonts.righteous(
-                                        textStyle:TextStyle(fontSize: 40,color: HexColor(hC))
-                                    ),
-                                      maxFontSize: 60,
-                                      minFontSize: 20,
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10,),
-                              Text(data['desc'],style: GoogleFonts.sarabun(
-                                textStyle: TextStyle(fontSize: 30,color: HexColor(fC))
-                              ),)
-                            ],
-                          )
+                    color: HexColor(mCC),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        image: DecorationImage(
+                          image: AssetImage('assets/main_card.png'),
+                          opacity: 0.3,
+                          fit: BoxFit.cover
+                        ),
                       ),
-                    ),
+                      child: SizedBox(
+                        height: size.height/4,
+                        width: size.width,
+                        child: Center(
+                            child:
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                TextButton.icon(onPressed:(){
+                                        Navigator.pushNamed(context,'/location');
+                                          },
+                                        icon: Icon(Icons.edit,size: 20,color: HexColor(fC),),
+                                        label: Text('Edit',style: GoogleFonts.sarabun(
+                                          textStyle: TextStyle(fontSize: 20,color: HexColor(fC),fontWeight: FontWeight.w900)
+                                        ),),
+                                    ),
+                                    ConstrainedBox(
+                                      constraints:BoxConstraints(
+                                        minWidth: size.width/5,
+                                        maxWidth: size.width/1.5,
+                                        minHeight: size.height/18,
+                                        maxHeight: size.height/10,
+                                      ),
+                                      child: AutoSizeText(
+                                        data['cityName'],style:GoogleFonts.pacifico(
+                                          textStyle:TextStyle(fontSize: 40,color: HexColor('#8a1500'),)
+                                      ),
+                                        maxFontSize: 60,
+                                        minFontSize: 15,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                Text(data['desc'].toString().toUpperCase(),style: GoogleFonts.sarabun(
+                                    textStyle: TextStyle(fontSize: 20,color: HexColor(fC),fontWeight: FontWeight.w900)
+                                  ),
+                                ),
+                                SizedBox(height: 15,),
+                              ],
+                            )
+                        ),
+                      ),
+                    )
+
                   ),
                 ),//main city and desc
               Expanded(
@@ -306,7 +322,8 @@ class _homeState extends State<home> {
                                       SizedBox(width: size.width/n,),
                                       Text(data['windGust'].toString(),style: GoogleFonts.signika(
                                           textStyle: TextStyle(fontSize: 20,color: HexColor(fC))
-                                      ) )
+                                        )
+                                      ),
                                     ],
                                   ),//wind gust
                                 ],
@@ -314,6 +331,36 @@ class _homeState extends State<home> {
                             ),
                           ),
                         ),
+                      ),
+                      DropShadow(
+                          offset: const Offset(2,6),
+                          opacity: 1,
+                          spread: 1,
+                          child: Card(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(18))
+                            ),
+                            color: HexColor(cC),
+                            child: SizedBox(
+                              width: size.width,
+                              height: size.height/9,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Text('Made by'.toUpperCase(),style: TextStyle(fontWeight: FontWeight.w800,letterSpacing: 2,color: HexColor(hC)),),
+                                      TextButton(
+                                        onPressed: _launchUrl,
+                                        child: Text('GPSxtreme',style: TextStyle(fontWeight: FontWeight.w800,letterSpacing: 1.2,color: HexColor(hC),fontSize: 16)),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: 40,),
+                                ],
+                              ),
+                            ),
+                          )
                       ),
                     ],
                   ),
@@ -323,7 +370,6 @@ class _homeState extends State<home> {
           ),
         ),
       ),
-
     );
   }
 }
@@ -340,3 +386,4 @@ class _homeState extends State<home> {
 // Text('Wind speed: '+data['windSpeed'].toString()+' km/h'),
 // Text('Wind degree: '+data['windDeg'].toString()+'°'),
 // Text('Wind gust: '+data['windGust'].toString()),
+//methods
