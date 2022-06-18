@@ -8,6 +8,7 @@ import 'package:drop_shadow/drop_shadow.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:dotted_line/dotted_line.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -42,72 +43,83 @@ class _homeState extends State<home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              DropShadow(
-                  blurRadius: 6,
-                  offset: const Offset(2,6),
-                  opacity: 1,
-                  spread: 1,
-                  child: Card(
-                    semanticContainer: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(18))
-                    ),
-                    color: HexColor(mCC),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        image: DecorationImage(
-                          image: AssetImage('assets/main_card.png'),
-                          opacity: 0.3,
-                          fit: BoxFit.cover
-                        ),
+              SizedBox(height: 15,),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Card(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(18))
                       ),
-                      child: SizedBox(
-                        height: size.height/4,
-                        width: size.width,
-                        child: Center(
-                            child:
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                TextButton.icon(onPressed:(){
-                                        Navigator.pushNamed(context,'/location');
-                                          },
-                                        icon: Icon(Icons.edit,size: 20,color: HexColor(fC),),
-                                        label: Text('Edit',style: GoogleFonts.sarabun(
-                                          textStyle: TextStyle(fontSize: 20,color: HexColor(fC),fontWeight: FontWeight.w900)
-                                        ),),
-                                    ),
-                                    ConstrainedBox(
-                                      constraints:BoxConstraints(
-                                        minWidth: size.width/5,
-                                        maxWidth: size.width/1.5,
-                                        minHeight: size.height/18,
-                                        maxHeight: size.height/10,
+                      color: HexColor(mCC),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: null,
+                          borderRadius: BorderRadius.circular(18),
+                          image: DecorationImage(
+                            image: AssetImage('assets/main_card.png'),
+                            opacity: 0.3,
+                            fit: BoxFit.cover
+                          ),
+                        ),
+                        child: SizedBox(
+                          height: size.height/4,
+                          width: size.width/1.1,
+                          child: Center(
+                              child:
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  TextButton.icon(onPressed:(){
+                                          Navigator.pushNamed(context,'/location');
+                                            },
+                                          icon: Icon(Icons.edit,size: 20,color: HexColor(fC),),
+                                          label: Text('Edit',style: GoogleFonts.sarabun(
+                                            textStyle: TextStyle(fontSize: 20,color: HexColor(fC),fontWeight: FontWeight.w900)
+                                          ),),
                                       ),
-                                      child: AutoSizeText(
-                                        data['cityName'],style:GoogleFonts.pacifico(
-                                          textStyle:TextStyle(fontSize: 40,color: HexColor('#8a1500'),)
-                                      ),
-                                        maxFontSize: 60,
-                                        minFontSize: 15,
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                Text(data['desc'].toString().toUpperCase(),style: GoogleFonts.sarabun(
-                                    textStyle: TextStyle(fontSize: 20,color: HexColor(fC),fontWeight: FontWeight.w900)
+                                  DottedLine(
+                                    direction: Axis.horizontal,
+                                    lineLength: 110,
+                                    lineThickness: 1,
+                                    dashLength: 6.0,
+                                    dashRadius: 2.0,
+                                    dashGapLength: 6.0,
+                                    dashGapColor: Colors.transparent,
+                                    dashColor: HexColor(fC),
+                                    dashGapRadius: 8.0,
                                   ),
-                                ),
-                                SizedBox(height: 15,),
-                              ],
-                            )
+                                      ConstrainedBox(
+                                        constraints:BoxConstraints(
+                                          minWidth: size.width/5,
+                                          maxWidth: size.width/1.5,
+                                          minHeight: size.height/18,
+                                          maxHeight: size.height/10,
+                                        ),
+                                        child: AutoSizeText(
+                                          data['cityName'],style:GoogleFonts.pacifico(
+                                            textStyle:TextStyle(fontSize: 40,color: HexColor('#8a1500'),)
+                                        ),
+                                          maxFontSize: 60,
+                                          minFontSize: 15,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                  Text(data['desc'].toString().toUpperCase(),style: GoogleFonts.sarabun(
+                                      textStyle: TextStyle(fontSize: 20,color: HexColor(fC),fontWeight: FontWeight.w900)
+                                    ),
+                                  ),
+                                  SizedBox(height: 15,),
+                                ],
+                              )
+                          ),
                         ),
                       ),
-                    )
-
-                  ),
-                ),//main city and desc
+                    ),
+              ),//main city and desc
+              SizedBox(height: 15,),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -139,9 +151,14 @@ class _homeState extends State<home> {
                                       children: <Widget>[
                                         FaIcon(Ionicons.thermometer_outline,size: 40,color: HexColor('fcfc03'),),
                                         SizedBox(height: 10,),
-                                        Text(data['temp'].toString()+'°C',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 35,color: HexColor(fC))
+                                        Text('CURRENT',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
+                                          ),
                                         ),
+                                        SizedBox(height: 10,),
+                                        Text(data['temp'].toString()+'°C',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 25,color: HexColor(fC))
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -172,9 +189,14 @@ class _homeState extends State<home> {
                                       children: <Widget>[
                                         FaIcon(FontAwesomeIcons.wind,size: 40,color: HexColor(hC),),
                                         SizedBox(height: 10,),
-                                        Text(data['windSpeed'].toString()+' km/h',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 30,color: HexColor(fC))
+                                        Text('WIND SPEED',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
+                                          ),
                                         ),
+                                        SizedBox(height: 10,),
+                                        Text(data['windSpeed'].toString()+' km/h',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 25,color: HexColor(fC))
+                                         ),
                                         ),
                                       ],
                                     ),
@@ -209,9 +231,14 @@ class _homeState extends State<home> {
                                       children: <Widget>[
                                         FaIcon(FontAwesomeIcons.temperatureHigh,size: 40,color: HexColor('#fc0303'),),
                                         SizedBox(height: 10,),
-                                        Text(data['tempMax'].toString()+'°C',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 35,color: HexColor(fC))
+                                        Text('MAXIMUM',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
                                         ),
+                                        ),
+                                        SizedBox(height: 10,),
+                                        Text(data['tempMax'].toString()+'°C',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 25,color: HexColor(fC))
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -242,8 +269,13 @@ class _homeState extends State<home> {
                                       children: <Widget>[
                                         FaIcon(FontAwesomeIcons.temperatureLow,size: 40,color: HexColor(hC),),
                                         SizedBox(height: 10,),
+                                        Text('MINIMUM',style: GoogleFonts.signika(
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
+                                        ),
+                                        ),
+                                        SizedBox(height: 10,),
                                         Text(data['tempMin'].toString()+'°C',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 30,color: HexColor(fC))
+                                            textStyle:TextStyle(fontSize: 25,color: HexColor(fC))
                                         ),
                                         ),
                                       ],
@@ -273,6 +305,7 @@ class _homeState extends State<home> {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
+                                  SizedBox(height: 5,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -286,6 +319,13 @@ class _homeState extends State<home> {
                                       ) )
                                     ],
                                   ),//pressure
+                                  Divider(
+                                    thickness: 1.2,
+                                    indent: 30,
+                                    endIndent: 30,
+                                    height: 10,
+                                    color: HexColor(bC),
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -299,6 +339,13 @@ class _homeState extends State<home> {
                                       ) )
                                     ],
                                   ),//humidity
+                                  Divider(
+                                    thickness: 1.2,
+                                    indent: 30,
+                                    height: 10,
+                                    endIndent: 30,
+                                    color: HexColor(bC),
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -312,6 +359,13 @@ class _homeState extends State<home> {
                                       ) )
                                     ],
                                   ),//wind degree
+                                  Divider(
+                                    thickness: 1.2,
+                                    indent: 30,
+                                    height: 10,
+                                    endIndent: 30,
+                                    color: HexColor(bC),
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -326,13 +380,15 @@ class _homeState extends State<home> {
                                       ),
                                     ],
                                   ),//wind gust
+                                  SizedBox(height: 5,),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      ),//other details
                       DropShadow(
+                          blurRadius: 6,
                           offset: const Offset(2,6),
                           opacity: 1,
                           spread: 1,
@@ -349,7 +405,7 @@ class _homeState extends State<home> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      Text('Made by'.toUpperCase(),style: TextStyle(fontWeight: FontWeight.w800,letterSpacing: 2,color: HexColor(hC)),),
+                                      Text('Made by'.toUpperCase(),style: TextStyle(fontWeight: FontWeight.w800,letterSpacing: 2,color: HexColor(fC)),),
                                       TextButton(
                                         onPressed: _launchUrl,
                                         child: Text('GPSxtreme',style: TextStyle(fontWeight: FontWeight.w800,letterSpacing: 1.2,color: HexColor(hC),fontSize: 16)),
