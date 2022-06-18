@@ -152,7 +152,7 @@ class _homeState extends State<home> {
                                         FaIcon(Ionicons.thermometer_outline,size: 40,color: HexColor('fcfc03'),),
                                         SizedBox(height: 10,),
                                         Text('CURRENT',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor('cccccc'),fontWeight: FontWeight.w800)
                                           ),
                                         ),
                                         SizedBox(height: 10,),
@@ -190,7 +190,7 @@ class _homeState extends State<home> {
                                         FaIcon(FontAwesomeIcons.wind,size: 40,color: HexColor(hC),),
                                         SizedBox(height: 10,),
                                         Text('WIND SPEED',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor('cccccc'),fontWeight: FontWeight.w800)
                                           ),
                                         ),
                                         SizedBox(height: 10,),
@@ -232,7 +232,7 @@ class _homeState extends State<home> {
                                         FaIcon(FontAwesomeIcons.temperatureHigh,size: 40,color: HexColor('#fc0303'),),
                                         SizedBox(height: 10,),
                                         Text('MAXIMUM',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor('cccccc'),fontWeight: FontWeight.w800)
                                         ),
                                         ),
                                         SizedBox(height: 10,),
@@ -270,7 +270,7 @@ class _homeState extends State<home> {
                                         FaIcon(FontAwesomeIcons.temperatureLow,size: 40,color: HexColor(hC),),
                                         SizedBox(height: 10,),
                                         Text('MINIMUM',style: GoogleFonts.signika(
-                                            textStyle:TextStyle(fontSize: 15,color: HexColor(fC))
+                                            textStyle:TextStyle(fontSize: 15,color: HexColor('cccccc'),fontWeight: FontWeight.w800)
                                         ),
                                         ),
                                         SizedBox(height: 10,),
@@ -417,7 +417,7 @@ class _homeState extends State<home> {
                               ),
                             ),
                           )
-                      ),
+                      ),//made by footer
                     ],
                   ),
                 ),
@@ -429,17 +429,4 @@ class _homeState extends State<home> {
     );
   }
 }
-//reference
-// Text('city name: '+data['cityName']),
-// Text('weather now: '+data['main']),
-// Text('description: '+data['desc']),
-// Text('Temperature: '+data['temp'].toString()+'°C'),
-// Text('Feels like: '+ data['feelsLike'].toString()+'°C'),
-// Text('Temperature maximum: '+data['tempMax'].toString()+'°C'),
-// Text('Temperature minimum: '+data['tempMin'].toString()+'°C'),
-// Text('Pressure: '+data['pressure'].toString()+' pa'),
-// Text('Humidity: '+data['humidity'].toString()+' g.m-3'),
-// Text('Wind speed: '+data['windSpeed'].toString()+' km/h'),
-// Text('Wind degree: '+data['windDeg'].toString()+'°'),
-// Text('Wind gust: '+data['windGust'].toString()),
-//methods
+

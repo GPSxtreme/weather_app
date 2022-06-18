@@ -5,7 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_app/services/get_details.dart';
 import 'package:weather_app/pages/choose_location.dart';
 import 'package:weather_app/services/get_cities.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
+
 
 class loading extends StatefulWidget {
   const loading({Key? key}) : super(key: key);
@@ -33,10 +34,10 @@ class _loadingState extends State<loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: HexColor('363333'),
       body: Center(
         child: SpinKitCircle(
-          color: Colors.white,
+          color: HexColor('E16428'),
           size: 50.0,
         ),
       ),
